@@ -1,0 +1,18 @@
+<%= form_with model: instruction, url: recipe_instructions_path(recipe), class: "max-w-md mx-auto" do |form| %>
+  <%= render "shared/error_form", form: form %>
+
+  <div class="mb-4">
+    <%= form.label :steps_number, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.number_field :steps_number, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :description, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_area :description, rows: 4, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <%= form.submit class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300" %>
+    <%= link_to "Cancel", recipe_path(recipe), class: "inline-block align-baseline font-bold text-sm text-gray-500 hover:text-gray-800" %>
+  </div>
+<% end %>

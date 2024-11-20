@@ -1,0 +1,80 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800"><%= @recipe.name %></h1>
+        <% if user_signed_in? && current_user.id == @recipe.user_id %>
+          <%= link_to "Edit Recipe", edit_recipe_path(@recipe), class: "bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded transition duration-300 no-underline" %>
+        <% end %>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="text-gray-700">Prep time: <%= @recipe.prep_time %> min</span>
+        </div>
+        <div class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+          </svg>
+          <span class="text-gray-700">Cook time: <%= @recipe.cook_time %> min</span>
+        </div>
+        <div class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span class="text-gray-700">Servings: <%= @recipe.serving %></span>
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-semibold text-gray-800">Ingredients</h2>
+          <% if user_signed_in? && current_user.id == @recipe.user_id %>
+            <%= link_to "Add Item", new_recipe_item_path(@recipe), class: "bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded transition duration-300 no-underline" %>
+          <% end %>
+        </div>
+        <div class="space-y-4">
+          <% @recipe.recipe_ingredients.includes(:ingredient).each do |ing| %>
+            <div class="flex justify-between items-center bg-gray-100 rounded-lg p-4">
+              <h4 class="text-lg text-gray-800">
+                <%= ing.ingredient.name %>: <span class="font-semibold"><%= ing.quantity %><%= ing.unit %></span>
+              </h4>
+              <% if user_signed_in? && current_user.id == @recipe.user_id %>
+                <%= button_to "Remove", recipe_item_path(@recipe, ing), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded transition duration-300" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-semibold text-gray-800">Instructions</h2>
+          <% if user_signed_in? && current_user.id == @recipe.user_id %>
+            <%= link_to "Add Instruction", new_recipe_instruction_path(@recipe), class: "bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded transition duration-300 no-underline" %>
+          <% end %>
+        </div>
+        <div class="space-y-4">
+          <% @recipe.instructions.order(:steps_number).each do |instruction| %>
+            <div class="flex items-center bg-gray-100 rounded-lg p-4">
+              <div class="flex-grow flex items-center justify-center">
+                <span class="font-bold text-lg mr-4"><%= instruction.steps_number %>.</span>
+                <p class="text-gray-800"><%= instruction.description %></p>
+              </div>
+              <% if user_signed_in? && current_user.id == @recipe.user_id %>
+                <div class="flex-shrink-0 ml-4">
+                  <%= link_to "Edit", edit_recipe_instruction_path(@recipe, instruction), class: "text-blue-500 hover:text-blue-700 mr-2" %>
+                  <%= button_to "Remove", recipe_instruction_path(@recipe, instruction), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-red-500 hover:text-red-700" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,13 @@
+<nav class="bg-gray-800 p-4 rounded">
+  <div class="container mx-auto flex justify-between items-center">
+    <%= link_to "Sorbillo", root_path, class: "text-white font-semibold text-lg no-underline" %>
+    <div class="space-x-4">
+      <% if user_signed_in? %>
+        <%= link_to "Add Recipe", new_recipe_path, class: "text-white hover:text-gray-300" %>
+        <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white hover:text-gray-300 bg-transparent border-none" %>
+      <% else %>
+        <%= link_to "Sign In", new_user_session_path, class: "text-white hover:text-gray-300" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
