@@ -1,24 +1,36 @@
-# README
+# 🍳 RecipeHub
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A modern, user-friendly recipe management application built with Ruby on Rails that helps cooking enthusiasts discover, share, and organize their favorite recipes.
 
-Things you may want to cover:
+## ✨ Features
 
-* Ruby version
+- **Recipe Management**
+  - Create, view, edit, and delete recipes
+  - Add step-by-step cooking instructions
+  - Specify preparation time, cooking time, and serving size
 
-* System dependencies
+- **Ingredient System**
+  - Detailed ingredient listings with quantities and units
+  - Smart ingredient search functionality
+  - Multi-ingredient search to find recipes based on available ingredients
 
-* Configuration
+- **User Experience**
+  - Responsive design for mobile and desktop
+  - Clean, intuitive interface using Tailwind CSS
+  - Real-time search and filtering capabilities
 
-* Database creation
+## 🚀 Getting Started
 
-* Database initialization
+### Prerequisites
 
-* How to run the test suite
+- Ruby 3.0.0 or higher
+- Rails 7.0.0 or higher
+- PostgreSQL
+- Node.js & Yarn
 
-* Services (job queues, cache servers, search engines, etc.)
+### Installation
 
-* Deployment instructions
-
-* ...
+1. Clone the repository
+2. ``` bundle install ```
+3. ``` rails db:create db:migrate db:seed```
+4. ``` bin/dev ```
